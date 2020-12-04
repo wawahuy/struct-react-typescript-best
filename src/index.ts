@@ -1,4 +1,3 @@
-const a = () => {
-  console.log('test');
-};
-a();
+import './index.scss';
+
+console.log('oke');
