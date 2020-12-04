@@ -1,0 +1,33 @@
+{
+  "name": "struct-react-nextjs-webpack-babel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack --mode development --watch",
+    "build": "rimraf ./dist && webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wawahuy/struct-react-nextjs-webpack-babel.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wawahuy/struct-react-nextjs-webpack-babel/issues"
+  },
+  "homepage": "https://github.com/wawahuy/struct-react-nextjs-webpack-babel#readme",
+  "devDependencies": {
+    "rimraf": "^3.0.2",
+    "typescript": "^4.1.2",
+    "webpack": "^5.9.0",
+    "webpack-cli": "^4.2.0"
+  },
+  "dependencies": {
+    "css-loader": "^5.0.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "ts-loader": "^8.0.11"
+  }
+}
