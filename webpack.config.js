@@ -1,10 +1,13 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+const devMode = process.env.NODE_ENV !== 'production';
 
 const config = {
   entry: {
-    test: './src/index.ts'
+    test: './src/index.tsx'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -13,16 +16,37 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(css|scss)$/, use: 'css-loader',
-        use: ["style-loader", "css-loader", "sass-loader"]
+        test: /\.(scss|sass|css)$/,
+        exclude: /node_modules/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              sourceMap: true,
+              importLoaders: 1,
+              modules: {
+                localIdentName: '[local]___[hash:base64:5]'
+              }
+            }
+          },
+          'sass-loader',
+        ]
       }, 
       {
-        test: /\.ts$/, use: 'ts-loader'
+        test: /\.(ts|tsx)$/, 
+        exclude: /node_modules/,
+        use: ['babel-loader']
       }
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: path.join(__dirname, "/src/index.html") }),
+    new HtmlWebpackPlugin({ template: path.join(__dirname, "/public/index.html") }),
+    new MiniCssExtractPlugin({
+      filename: devMode ? '[name].css' : '[name].[hash].css',
+      chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
+    })
   ],
   devServer: {
     hot: true,       
@@ -31,14 +55,5 @@ const config = {
   },
 }
 
-if (process.env.NODE_ENV === 'production') {
-  config.plugins.push(
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({comments: false}),
-    new webpack.DefinePlugin({
-      'process.env': {NODE_ENV: JSON.stringify('production')}
-    })
-  )
-}
 
 module.exports = config;
