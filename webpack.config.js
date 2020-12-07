@@ -33,11 +33,22 @@ const config = {
           },
           'sass-loader',
         ]
-      }, 
+      },
       {
-        test: /\.(ts|tsx)$/, 
+        test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
         use: ['babel-loader']
+      },
+      {
+        test: /\.(jpg|png|gif|svg)$/,
+        use: [
+        {
+            loader: 'file-loader',
+            options: {
+                name: '[name].[ext]',
+                outputPath: './assets/',
+            }
+        }]
       }
     ]
   },
@@ -49,8 +60,8 @@ const config = {
     })
   ],
   devServer: {
-    hot: true,       
-    port: 3000,        
+    hot: true,
+    port: 3000,
     host: 'localhost'
   },
 }
