@@ -46,10 +46,21 @@ const config = {
             loader: 'file-loader',
             options: {
                 name: '[name].[ext]',
-                outputPath: './assets/',
+                outputPath: './assets/images',
             }
         }]
-      }
+      },
+      {
+        test: /\.(ttf|woff|jfproj)$/,
+        use: [
+        {
+            loader: 'file-loader',
+            options: {
+                name: '[name].[ext]',
+                outputPath: './assets/fonts',
+            }
+        }]
+      },
     ]
   },
   plugins: [
@@ -62,7 +73,6 @@ const config = {
   devServer: {
     hot: true,
     port: 3000,
-    host: 'localhost'
   },
 }
 
